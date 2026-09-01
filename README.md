@@ -2,8 +2,6 @@
 
 > 一个整合多个 AI 聊天网站增强功能的 Tampermonkey 油猴脚本，按网址自动适配。
 
-把原本分散在 6 个独立脚本里的快捷键与界面增强，合并成一个脚本。脚本在运行时根据当前网址（`location.hostname`）自动判断该启用哪一套逻辑，同一时刻只加载对应网站的功能，互不干扰。
-
 ## 支持的网站与功能
 
 | 网站 | 匹配地址 | 快捷键 / 功能 |
@@ -47,15 +45,6 @@ const ENABLED = {
 - **运行环境**：因豆包功能依赖 `GM_registerMenuCommand` / `GM_setValue` / `GM_getValue`，整个脚本运行在油猴沙箱（isolated world）。对纯 DOM / 事件类功能无影响，脚本伪造的键盘事件仍会跨 world 送达页面原生监听器。
 - **注入时机**：统一 `@run-at document-start`；DOM 依赖型代码内部做了 `DOMContentLoaded` / `readyState` 守卫，避免页面未就绪时出错。
 
-## 目录结构
-
-```
-AI Web Script/
-├── AI-Web-Script.user.js   # 整合后的脚本（唯一下载入口）
-├── ResearchProject/        # 原始独立脚本（已被整合，已加入 .gitignore）
-├── README.md
-└── .gitignore
-```
 
 ## 更新与维护
 
