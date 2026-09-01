@@ -3,3 +3,6 @@ ResearchProject/
 
 # 本地助手工作区数据，不纳入代码仓库
 .workbuddy/
+
+# 测试脚本（依赖 jsdom，仅本地验证用，不纳入仓库）
+test/
