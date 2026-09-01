@@ -21,7 +21,7 @@
 ## 安装
 
 1. 浏览器安装 [Tampermonkey](https://www.tampermonkey.net/) 扩展。
-2. 点击 `AI Web Script.user.js`，在 Tampermonkey 中确认安装。
+2. 点击 `AI-Web-Script.user.js`，在 Tampermonkey 中确认安装。
 3. 打开任意支持的网站即可生效。
 
 ## 配置
@@ -51,7 +51,7 @@ const ENABLED = {
 
 ```
 AI Web Script/
-├── AI Web Script.user.js   # 整合后的脚本（唯一下载入口）
+├── AI-Web-Script.user.js   # 整合后的脚本（唯一下载入口）
 ├── ResearchProject/        # 原始独立脚本（已被整合，已加入 .gitignore）
 ├── README.md
 └── .gitignore

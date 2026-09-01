@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         AI Web Script (统一 AI 聊天网站增强)
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  整合 DeepSeek / Gemini / Grok / Qwen / ZAI / Doubao 的快捷键与界面增强，按网址自动适配。
-// @updateURL    https://cdn.jsdelivr.net/gh/lawlietc/AI-Website-Script@main/AI%20Web%20Script.user.js
-// @downloadURL  https://cdn.jsdelivr.net/gh/lawlietc/AI-Website-Script@main/AI%20Web%20Script.user.js
+// @updateURL    https://cdn.jsdelivr.net/gh/lawlietc/AI-Website-Script@main/AI-Web-Script.user.js
+// @downloadURL  https://cdn.jsdelivr.net/gh/lawlietc/AI-Website-Script@main/AI-Web-Script.user.js
 // @homepageURL  https://github.com/lawlietc/AI-Website-Script
 // @author       Lawliet
 // @match        https://chat.deepseek.com/*
