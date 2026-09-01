@@ -1,0 +1,5 @@
+# 忽略原始独立脚本目录（已被整合进 AI Web Script.user.js）
+ResearchProject/
+
+# 本地助手工作区数据，不纳入代码仓库
+.workbuddy/
