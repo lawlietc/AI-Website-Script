@@ -3,6 +3,9 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  整合 DeepSeek / Gemini / Grok / Qwen / ZAI / Doubao 的快捷键与界面增强，按网址自动适配。
+// @updateURL    https://cdn.jsdelivr.net/gh/lawlietc/AI-Website-Script@main/AI%20Web%20Script.user.js
+// @downloadURL  https://cdn.jsdelivr.net/gh/lawlietc/AI-Website-Script@main/AI%20Web%20Script.user.js
+// @homepageURL  https://github.com/lawlietc/AI-Website-Script
 // @author       Lawliet
 // @match        https://chat.deepseek.com/*
 // @match        https://gemini.google.com/app*
