@@ -18,9 +18,14 @@
 
 ## 安装
 
-1. 浏览器安装 [Tampermonkey](https://www.tampermonkey.net/) 扩展。
-2. 点击 `AI-Web-Script.user.js`，在 Tampermonkey 中确认安装。
+1. 浏览器安装 [Tampermonkey](https://www.tampermonkey.net/) 或 [Violentmonkey](https://violentmonkey.github.io/) 扩展。
+2. 复制下面的**原始文件地址**，在扩展里选「从 URL 安装 / 新建脚本 → 从 URL 安装」并粘贴：
+
+   https://cdn.jsdelivr.net/gh/lawlietc/AI-Website-Script@main/AI-Web-Script.user.js
+
 3. 打开任意支持的网站即可生效。
+
+> ⚠️ 必须填「原始 `.user.js` 文件」地址。不要填 GitHub 仓库首页或 `/blob/main/...` 文件浏览页——那些返回的是 HTML，安装会报"脚本不合法"。
 
 ## 配置
 
@@ -44,7 +49,6 @@ const ENABLED = {
 - **按网址分流**：脚本加载后根据 `location.hostname` 调用对应的 `initXxx()`，各站点逻辑彼此隔离，快捷键不会跨站冲突。
 - **运行环境**：因豆包功能依赖 `GM_registerMenuCommand` / `GM_setValue` / `GM_getValue`，整个脚本运行在油猴沙箱（isolated world）。对纯 DOM / 事件类功能无影响，脚本伪造的键盘事件仍会跨 world 送达页面原生监听器。
 - **注入时机**：统一 `@run-at document-start`；DOM 依赖型代码内部做了 `DOMContentLoaded` / `readyState` 守卫，避免页面未就绪时出错。
-
 
 ## 更新与维护
 
