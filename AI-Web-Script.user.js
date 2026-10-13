@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AI Web Script (统一 AI 聊天网站增强)
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  整合 DeepSeek / Gemini / Grok / Qwen / ZAI / Doubao 的快捷键与界面增强，按网址自动适配。
 // @updateURL    https://cdn.jsdelivr.net/gh/lawlietc/AI-Website-Script@main/AI-Web-Script.user.js
 // @downloadURL  https://cdn.jsdelivr.net/gh/lawlietc/AI-Website-Script@main/AI-Web-Script.user.js
@@ -44,29 +44,47 @@
     else if (ENABLED.doubao && host.includes('doubao.com')) initDoubao();
 
     /* =========================================================
-     * DeepSeek：交换 Ctrl+K ↔ Ctrl+J（捕获阶段拦截并重派发）
+     * 共享工具：聚焦页面上第一个「可见」的文本输入框
+     * 仅用于没有专属 Alt+1 逻辑的站点（DeepSeek / Gemini / Grok）
+     * ========================================================= */
+    function focusFirstTextInput() {
+        const inputSelector = [
+            'input[type="text"]:not([disabled]):not([readonly])',
+            'input[type="email"]:not([disabled]):not([readonly])',
+            'input[type="password"]:not([disabled]):not([readonly])',
+            'input[type="search"]:not([disabled]):not([readonly])',
+            'input[type="tel"]:not([disabled]):not([readonly])',
+            'input[type="url"]:not([disabled]):not([readonly])',
+            'input:not([type]):not([disabled]):not([readonly])',
+            'textarea:not([disabled]):not([readonly])',
+            '[contenteditable="true"]:not([disabled]):not([readonly])',
+            '[role="textbox"]:not([disabled]):not([readonly])'
+        ].join(',');
+
+        const allInputs = document.querySelectorAll(inputSelector);
+        const firstVisibleInput = Array.from(allInputs).find(function (input) {
+            const style = window.getComputedStyle(input);
+            return style.display !== 'none' && style.visibility !== 'hidden';
+        });
+
+        if (firstVisibleInput) firstVisibleInput.focus();
+    }
+
+    /* =========================================================
+     * DeepSeek：Ctrl+K 映射为 Ctrl+J（捕获阶段拦截并重派发），
+     *              Ctrl+J 保留原有功能，不做任何改动。
      * ========================================================= */
     function initDeepSeek() {
-        let swapping = false;
+        let redirecting = false;
 
         document.addEventListener('keydown', function (event) {
-            if (swapping) return; // 防止新事件再次触发
+            if (redirecting) return; // 防止重派发的事件再次被拦截
 
             const isK = event.ctrlKey && (event.key === 'k' || event.key === 'K');
-            const isJ = event.ctrlKey && (event.key === 'j' || event.key === 'J');
-            if (!isK && !isJ) return;
+            if (!isK) return; // 只处理 Ctrl+K；Ctrl+J 保持原样
 
-            let newKey, newCode;
-            const originalKey = event.key;
-            const originalCode = event.code;
-
-            if (isK) {
-                newKey = originalKey === 'k' ? 'j' : 'J';
-                newCode = originalCode === 'KeyK' ? 'KeyJ' : originalCode;
-            } else {
-                newKey = originalKey === 'j' ? 'k' : 'K';
-                newCode = originalCode === 'KeyJ' ? 'KeyK' : originalCode;
-            }
+            const newKey = event.key === 'k' ? 'j' : 'J';
+            const newCode = event.code === 'KeyK' ? 'KeyJ' : event.code;
 
             event.stopImmediatePropagation();
             event.preventDefault();
@@ -86,10 +104,18 @@
                 composed: true,
             });
 
-            swapping = true;
+            redirecting = true;
             event.target.dispatchEvent(newEvent);
-            swapping = false;
+            redirecting = false;
         }, true);
+
+        // Alt+1：聚焦第一个可见文本输入框
+        document.addEventListener('keydown', function (event) {
+            if (event.altKey && event.key === '1') {
+                event.preventDefault();
+                focusFirstTextInput();
+            }
+        }, false);
     }
 
     /* =========================================================
@@ -117,6 +143,14 @@
                 }
             }
         });
+
+        // Alt+1：聚焦第一个可见文本输入框
+        document.addEventListener('keydown', function (event) {
+            if (event.altKey && event.key === '1') {
+                event.preventDefault();
+                focusFirstTextInput();
+            }
+        }, false);
     }
 
     /* =========================================================
@@ -155,6 +189,14 @@
                 simulateEvent(window);
             }
         }, true);
+
+        // Alt+1：聚焦第一个可见文本输入框
+        document.addEventListener('keydown', function (event) {
+            if (event.altKey && event.key === '1') {
+                event.preventDefault();
+                focusFirstTextInput();
+            }
+        }, false);
     }
 
     /* =========================================================
